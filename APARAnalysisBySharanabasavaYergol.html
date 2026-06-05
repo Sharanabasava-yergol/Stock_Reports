@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APAR Industries — FY26 Institutional Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0c;
+    --ink-2: #3a3830;
+    --ink-3: #7a7670;
+    --surface: #faf8f4;
+    --surface-2: #f0ece4;
+    --surface-3: #e8e2d8;
+    --accent: #c8440a;
+    --accent-light: #f5ece7;
+    --gold: #b8860b;
+    --gold-light: #fdf8ec;
+    --green: #2d6a4f;
+    --green-light: #e8f5ee;
+    --red: #8b1a1a;
+    --red-light: #fdeaea;
+    --amber: #92570a;
+    --amber-light: #fdf3e0;
+    --blue: #1a3f6b;
+    --blue-light: #e8f0fb;
+    --border: rgba(15,14,12,0.1);
+    --border-strong: rgba(15,14,12,0.2);
+    --rule: 0.5px solid var(--border);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .page { max-width: 900px; margin: 0 auto; padding: 0 2rem 4rem; }
+
+  /* ── Masthead ── */
+  .masthead {
+    padding: 3rem 0 2rem;
+    border-bottom: 1px solid var(--border-strong);
+    margin-bottom: 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .masthead::before {
+    content: 'APARINDS';
+    position: absolute;
+    right: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 7rem;
+    font-weight: 600;
+    color: var(--surface-2);
+    letter-spacing: -0.04em;
+    user-select: none;
+    pointer-events: none;
+    line-height: 1;
+  }
+  .masthead-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+    font-family: 'DM Mono', monospace;
+  }
+  .masthead-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .masthead-sub {
+    font-size: 13px;
+    color: var(--ink-3);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .masthead-sub span { display: flex; align-items: center; gap: 4px; }
+  .dot { width: 4px; height: 4px; border-radius: 50%; background: var(--border-strong); }
+  .verdict-pill {
+    display: inline-block;
+    background: var(--green);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 2px;
+    margin-top: 16px;
+  }
+
+  /* ── Section ── */
+  .section { margin-bottom: 3rem; }
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+    padding-bottom: 8px;
+    border-bottom: var(--rule);
+  }
+  .section-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  /* ── Score grid ── */
+  .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .score-card {
+    background: var(--surface-2);
+    border: var(--rule);
+    border-radius: 4px;
+    padding: 14px 16px;
+    transition: background .2s;
+  }
+  .score-card:hover { background: var(--surface-3); }
+  .score-label { font-size: 11px; color: var(--ink-3); margin-bottom: 4px; font-weight: 500; text-transform: uppercase; letter-spacing: .05em; }
+  .score-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--ink); font-weight: 500; line-height: 1; }
+  .score-denom { font-size: 12px; color: var(--ink-3); }
+  .score-sub { font-size: 11px; color: var(--ink-3); margin-top: 4px; }
+
+  /* ── Data rows ── */
+  .data-table { width: 100%; border-collapse: collapse; }
+  .data-table tr { border-bottom: var(--rule); }
+  .data-table tr:last-child { border-bottom: none; }
+  .data-table td { padding: 8px 0; vertical-align: top; }
+  .data-table td:first-child { color: var(--ink-3); font-size: 13px; width: 52%; }
+  .data-table td:last-child { text-align: right; }
+  .val { font-weight: 500; color: var(--ink); font-size: 13px; }
+  .note { font-size: 11px; color: var(--ink-3); margin-top: 1px; font-family: 'DM Mono', monospace; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+  .b-green { background: var(--green-light); color: var(--green); }
+  .b-amber { background: var(--amber-light); color: var(--amber); }
+  .b-red   { background: var(--red-light);   color: var(--red); }
+  .b-blue  { background: var(--blue-light);   color: var(--blue); }
+  .b-gold  { background: var(--gold-light);   color: var(--gold); }
+
+  /* ── Guidance table ── */
+  .gtable { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .gtable th { text-align: left; font-weight: 500; color: var(--ink-3); padding: 6px 10px 6px 0; border-bottom: 1px solid var(--border-strong); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }
+  .gtable td { padding: 8px 10px 8px 0; border-bottom: var(--rule); vertical-align: top; color: var(--ink-2); }
+  .gtable tr:last-child td { border-bottom: none; }
+  .gtable td:first-child { color: var(--ink); font-weight: 500; }
+
+  /* ── Segments ── */
+  .seg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .seg-card {
+    border: var(--rule);
+    border-radius: 4px;
+    padding: 16px;
+    background: var(--surface);
+    transition: border-color .2s;
+  }
+  .seg-card:hover { border-color: var(--border-strong); }
+  .seg-icon { font-size: 18px; margin-bottom: 8px; }
+  .seg-name { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .seg-rev { font-family: 'DM Mono', monospace; font-size: 1.1rem; font-weight: 500; color: var(--ink); }
+  .seg-cagr { font-size: 11px; color: var(--ink-3); margin-top: 2px; font-family: 'DM Mono', monospace; }
+  .seg-desc { font-size: 12px; color: var(--ink-3); margin-top: 10px; line-height: 1.5; }
+
+  /* ── Insights ── */
+  .insight {
+    padding: 12px 14px;
+    border-left: 2px solid var(--border-strong);
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--ink-2);
+    line-height: 1.6;
+    background: var(--surface-2);
+    border-radius: 0 4px 4px 0;
+  }
+  .insight.positive { border-color: var(--green); background: var(--green-light); }
+  .insight.warning  { border-color: var(--gold);  background: var(--gold-light); }
+  .insight.danger   { border-color: var(--red);   background: var(--red-light); }
+  .insight strong { font-weight: 500; color: var(--ink); }
+
+  /* ── Flag rows ── */
+  .flag { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-bottom: var(--rule); font-size: 13px; color: var(--ink-2); }
+  .flag:last-child { border-bottom: none; }
+  .flag-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+  .fd-green  { background: var(--green); }
+  .fd-amber  { background: var(--gold); }
+  .fd-red    { background: var(--red); }
+
+  /* ── Two-col ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .col-title { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); margin-bottom: 10px; }
+
+  /* ── Scenario cards ── */
+  .scenario-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .scenario { border-radius: 4px; padding: 14px 16px; }
+  .sc-bull { background: var(--green-light); border: var(--rule); }
+  .sc-base { background: var(--surface-2); border: var(--rule); }
+  .sc-bear { background: var(--red-light); border: var(--rule); }
+  .sc-label { font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 8px; }
+  .sc-bull .sc-label { color: var(--green); }
+  .sc-base .sc-label { color: var(--ink-2); }
+  .sc-bear .sc-label { color: var(--red); }
+  .sc-text { font-size: 12px; color: var(--ink-2); line-height: 1.6; }
+
+  /* ── Cash flow vis ── */
+  .cf-bar-wrap { margin: 1rem 0; }
+  .cf-bar-label { font-size: 11px; color: var(--ink-3); margin-bottom: 4px; display: flex; justify-content: space-between; }
+  .cf-bar { height: 6px; background: var(--surface-3); border-radius: 3px; overflow: hidden; }
+  .cf-bar-fill { height: 100%; border-radius: 3px; }
+  .cf-green { background: var(--green); }
+  .cf-amber { background: var(--gold); }
+  .cf-red   { background: var(--red); }
+
+  /* ── Verdict box ── */
+  .verdict {
+    border: 1px solid var(--border-strong);
+    border-radius: 4px;
+    padding: 1.5rem;
+    background: var(--surface);
+    position: relative;
+  }
+  .verdict::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px;
+    height: 100%;
+    background: var(--green);
+    border-radius: 4px 0 0 4px;
+  }
+  .verdict-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .verdict-body { font-size: 13px; color: var(--ink-2); line-height: 1.75; }
+  .verdict-body p { margin-bottom: 10px; }
+  .verdict-body p:last-child { margin-bottom: 0; }
+
+  /* ── Checklist ── */
+  .checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .check-item {
+    display: flex;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-2);
+    padding: 7px 10px;
+    background: var(--surface-2);
+    border-radius: 4px;
+    align-items: flex-start;
+  }
+  .check-item::before { content: '→'; color: var(--accent); flex-shrink: 0; font-weight: 500; }
+
+  /* ── Cash flow table ── */
+  .cf-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .cf-box { background: var(--surface-2); border-radius: 4px; padding: 10px 12px; border: var(--rule); }
+  .cf-box-label { font-size: 10px; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-3); font-weight: 500; margin-bottom: 4px; }
+  .cf-box-val { font-family: 'DM Mono', monospace; font-size: 1rem; font-weight: 500; color: var(--ink); }
+  .cf-box-note { font-size: 10px; color: var(--ink-3); margin-top: 2px; }
+
+  /* ── Divider ── */
+  .divider { border: none; border-top: var(--rule); margin: 2.5rem 0; }
+
+  /* ── Footer ── */
+  .footer { font-size: 11px; color: var(--ink-3); padding-top: 1.5rem; border-top: var(--rule); font-family: 'DM Mono', monospace; }
+
+  /* ── Animations ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+  .section { animation: fadeUp .4s ease both; }
+  .section:nth-child(2)  { animation-delay: .05s; }
+  .section:nth-child(3)  { animation-delay: .10s; }
+  .section:nth-child(4)  { animation-delay: .15s; }
+  .section:nth-child(5)  { animation-delay: .20s; }
+  .section:nth-child(6)  { animation-delay: .25s; }
+  .section:nth-child(7)  { animation-delay: .30s; }
+  .section:nth-child(8)  { animation-delay: .35s; }
+  .section:nth-child(9)  { animation-delay: .40s; }
+  .section:nth-child(10) { animation-delay: .45s; }
+  .section:nth-child(11) { animation-delay: .50s; }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .score-grid, .seg-grid, .scenario-grid { grid-template-columns: 1fr 1fr; }
+    .two-col, .checklist { grid-template-columns: 1fr; }
+    .cf-grid { grid-template-columns: 1fr 1fr; }
+    .masthead-title { font-size: 2rem; }
+    .masthead::before { font-size: 4rem; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Masthead -->
+  <header class="masthead">
+    <div class="masthead-eyebrow">Institutional Equity Research · Q4 FY2025–26</div>
+    <h1 class="masthead-title">APAR Industries<br>FY26 Deep Analysis</h1>
+    <div class="masthead-sub">
+      <span>BSE: 532259</span>
+      <span class="dot"></span>
+      <span>NSE: APARINDS</span>
+      <span class="dot"></span>
+      <span>Filed: 28 May 2026</span>
+      <span class="dot"></span>
+      <span>Revenue: ₹22,902 Cr</span>
+    </div>
+    <div><span class="verdict-pill">▲ Accumulate — 12–24 Month Horizon</span></div>
+  </header>
+
+  <!-- Step 1: Executive Scorecard -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Executive Scorecard</h2>
+    </div>
+    <div class="score-grid">
+      <div class="score-card">
+        <div class="score-label">Business Health</div>
+        <div><span class="score-num">8</span><span class="score-denom"> / 10</span></div>
+        <div class="score-sub">Strong structural demand</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Earnings Quality</div>
+        <div><span class="score-num">7</span><span class="score-denom"> / 10</span></div>
+        <div class="score-sub">One-offs dent PAT optics</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Balance Sheet</div>
+        <div><span class="score-num">8</span><span class="score-denom"> / 10</span></div>
+        <div class="score-sub">D/E 0.16× — near pristine</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Capital Allocation</div>
+        <div><span class="score-num">7.5</span><span class="score-denom"> / 10</span></div>
+        <div class="score-sub">Disciplined capex, rising WC</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Mgmt Credibility</div>
+        <div><span class="score-num">8</span><span class="score-denom"> / 10</span></div>
+        <div class="score-sub">Consistent execution</div>
+      </div>
+      <div class="score-card">
+        <div class="score-label">Future Visibility</div>
+        <div><span class="score-num">8</span><span class="score-denom"> / 10</span></div>
+        <div class="score-sub">₹7,671 Cr conductor backlog</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 2: Result Quality -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <h2 class="section-title">FY26 Result Quality Dissection</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="col-title">P&L Forensics</div>
+        <table class="data-table">
+          <tr><td>Consolidated revenue</td><td><div class="val">₹22,902 Cr</div><div class="note">+23.3% YoY · 5-yr CAGR 29%</div></td></tr>
+          <tr><td>EBITDA (adj.)</td><td><div class="val">₹2,067 Cr</div><div class="note">Margin flat 9.0% — structural stability</div></td></tr>
+          <tr><td>PAT reported</td><td><div class="val">₹977 Cr</div><div class="note">+18.9% · margin 4.3%</div></td></tr>
+          <tr><td>PAT adj. for one-offs</td><td><div class="val">~₹1,010 Cr</div><div class="note">+27% — wage code + ECB MTM + legal</div></td></tr>
+          <tr><td>Finance cost</td><td><div class="val">₹437 Cr</div><div class="note">+6.9% vs revenue +23.3% — leverage neutral</div></td></tr>
+          <tr><td>Other income</td><td><div class="val">₹65 Cr</div><div class="note">↓ from ₹81 Cr — no inflated dependency</div></td></tr>
+          <tr><td>Revenue quality</td><td><span class="badge b-green">High</span></td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="col-title">Growth Drivers</div>
+        <table class="data-table">
+          <tr><td>Domestic revenue growth</td><td><div class="val">+28.8%</div><div class="note">Outpacing exports — low risk</div></td></tr>
+          <tr><td>Export mix FY26</td><td><div class="val">29.8%</div><div class="note">US revenue +49.7% YoY</div></td></tr>
+          <tr><td>Premium product share</td><td><div class="val">45.8%</div><div class="note">Up from 40.6% in conductors</div></td></tr>
+          <tr><td>EBITDA/MT conductors</td><td><div class="val">₹43,012</div><div class="note">+17.3% — structural premiumisation</div></td></tr>
+          <tr><td>Seasonality / Q4 optics</td><td><span class="badge b-amber">Watch</span></td></tr>
+          <tr><td>Inventories</td><td><div class="val">₹4,153 Cr</div><div class="note">+25.4% — proportional to growth</div></td></tr>
+          <tr><td>Tax rate</td><td><div class="val">25.4%</div><div class="note">Normal — no anomaly</div></td></tr>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 3: Guidance Tracker -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Management Promise vs Reality</h2>
+    </div>
+    <table class="gtable">
+      <thead>
+        <tr>
+          <th style="width:38%">Claim / Guidance</th>
+          <th style="width:14%">Timeline</th>
+          <th style="width:34%">Outcome</th>
+          <th style="width:14%">Verdict</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>5-yr revenue CAGR ~29%</td><td>FY22–FY26</td><td>₹9,317 → ₹22,902 Cr; CAGR exactly 29.0%</td><td><span class="badge b-green">Delivered</span></td></tr>
+        <tr><td>Conductor EBITDA/MT via premium mix</td><td>Ongoing</td><td>₹36,683 → ₹43,012 (+17.3% YoY)</td><td><span class="badge b-green">Delivered</span></td></tr>
+        <tr><td>Cable EBITDA margin 10%+</td><td>FY26</td><td>10.2% for 12M FY26</td><td><span class="badge b-green">Delivered</span></td></tr>
+        <tr><td>US market cable scale-up</td><td>FY26</td><td>US cables +46.7% YoY; Q4 +334% QoQ ramp</td><td><span class="badge b-green">Delivered</span></td></tr>
+        <tr><td>Reconductoring leadership</td><td>Long-term</td><td>272+ projects, >7,075 ckm completed</td><td><span class="badge b-green">Delivered</span></td></tr>
+        <tr><td>Oil EBITDA/KL improvement</td><td>FY26</td><td>₹5,943 vs ₹6,145 in FY25 — slight miss</td><td><span class="badge b-amber">Partial</span></td></tr>
+        <tr><td>Export mix >30% sustained</td><td>FY26</td><td>29.8% — marginal miss; domestic pull strong</td><td><span class="badge b-amber">Near-miss</span></td></tr>
+        <tr><td>D/E below 0.2×</td><td>FY26</td><td>D/E 0.16×; CWIP ₹539 Cr signals near-term rise</td><td><span class="badge b-green">Delivered</span></td></tr>
+        <tr><td>ROE 20%+</td><td>FY26</td><td>19.8% — fractionally below; strong trend intact</td><td><span class="badge b-amber">Near-miss</span></td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top:12px;font-size:12px;color:var(--ink-3);">
+      Execution credibility rating: <strong style="color:var(--ink)">Strong</strong> — consistent delivery on the big bets; minor misses on oil margins and export mix are explainable by external factors.
+    </div>
+  </section>
+
+  <!-- Step 4: Hidden Financial Architecture -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Hidden Financial Architecture &amp; Cash Flow Truth</h2>
+    </div>
+    <div class="cf-grid" style="margin-bottom:1.5rem;">
+      <div class="cf-box">
+        <div class="cf-box-label">CFO FY26</div>
+        <div class="cf-box-val">₹968 Cr</div>
+        <div class="cf-box-note">vs PAT ₹977 Cr — 1:1 quality</div>
+      </div>
+      <div class="cf-box">
+        <div class="cf-box-label">Capex FY26</div>
+        <div class="cf-box-val">₹737 Cr</div>
+        <div class="cf-box-note">CWIP ₹539 Cr = future capacity</div>
+      </div>
+      <div class="cf-box">
+        <div class="cf-box-label">Free Cash Flow</div>
+        <div class="cf-box-val">~₹231 Cr</div>
+        <div class="cf-box-note">Thin but investment-cycle driven</div>
+      </div>
+      <div class="cf-box">
+        <div class="cf-box-label">Total Borrowings</div>
+        <div class="cf-box-val">₹841 Cr</div>
+        <div class="cf-box-note">D/E 0.16× — not distress</div>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="col-title">Working Capital Forensics</div>
+        <table class="data-table">
+          <tr><td>Trade receivables</td><td><div class="val">₹5,334 Cr</div><div class="note">+30.8% YoY vs revenue +23.3% ⚠</div></td></tr>
+          <tr><td>Receivables secured</td><td><div class="val">50.4%</div><div class="note">+25.4% Govt/PSU; +24.2% long-tenure</div></td></tr>
+          <tr><td>Inventories</td><td><div class="val">₹4,153 Cr</div><div class="note">+25.4% — proportional to growth</div></td></tr>
+          <tr><td>Trade payables</td><td><div class="val">₹6,856 Cr</div><div class="note">+24.1% — healthy stretch</div></td></tr>
+          <tr><td>Net WC to revenue</td><td><div class="val">~17%</div><div class="note">Slight creep from 17.8% FY25</div></td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="cf-bar-wrap">
+          <div class="cf-bar-label"><span>EBITDA</span><span style="font-family:'DM Mono',monospace">₹2,067 Cr</span></div>
+          <div class="cf-bar"><div class="cf-bar-fill cf-green" style="width:100%"></div></div>
+        </div>
+        <div class="cf-bar-wrap">
+          <div class="cf-bar-label"><span>CFO</span><span style="font-family:'DM Mono',monospace">₹968 Cr</span></div>
+          <div class="cf-bar"><div class="cf-bar-fill cf-amber" style="width:47%"></div></div>
+        </div>
+        <div class="cf-bar-wrap">
+          <div class="cf-bar-label"><span>PAT</span><span style="font-family:'DM Mono',monospace">₹977 Cr</span></div>
+          <div class="cf-bar"><div class="cf-bar-fill cf-amber" style="width:47%"></div></div>
+        </div>
+        <div class="cf-bar-wrap">
+          <div class="cf-bar-label"><span>Capex</span><span style="font-family:'DM Mono',monospace">₹737 Cr</span></div>
+          <div class="cf-bar"><div class="cf-bar-fill cf-red" style="width:36%"></div></div>
+        </div>
+        <div class="cf-bar-wrap">
+          <div class="cf-bar-label"><span>Free cash flow</span><span style="font-family:'DM Mono',monospace">₹231 Cr</span></div>
+          <div class="cf-bar"><div class="cf-bar-fill cf-red" style="width:11%"></div></div>
+        </div>
+        <div style="font-size:11px;color:var(--ink-3);margin-top:8px;">Bars indexed to EBITDA = 100%</div>
+      </div>
+    </div>
+    <div class="insight warning" style="margin-top:1rem;">
+      <strong>Key observation:</strong> Receivables grew faster than revenue (+30.8% vs +23.3%). The quality breakdown (50.4% secured; 25.4% Govt/PSU) is reassuring, but DSO acceleration warrants monitoring in FY27. CWIP jump to ₹539 Cr from ₹128 Cr signals a large capacity cycle that will suppress FCF for 2–3 more quarters — this is appropriate, not alarming.
+    </div>
+  </section>
+
+  <!-- Step 5: Segment Analysis -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Segment &amp; Business Engine Analysis</h2>
+    </div>
+    <div class="seg-grid">
+      <div class="seg-card">
+        <div class="seg-icon">⚡</div>
+        <div class="seg-name">Conductors</div>
+        <div class="seg-rev">₹12,712 Cr</div>
+        <div class="seg-cagr">5-yr CAGR 34.2% · EBITDA 8.2%</div>
+        <div class="seg-desc">Core profit engine. EBITDA/MT ₹43,012. Premium mix 45.8%. Order book ₹7,671 Cr. US ramp +55% in FY26. Undisputed global #1 in aluminium conductors.</div>
+        <div style="margin-top:10px;"><span class="badge b-green">Strong moat</span></div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">🔌</div>
+        <div class="seg-name">Cable Solutions</div>
+        <div class="seg-rev">₹6,220 Cr</div>
+        <div class="seg-cagr">5-yr CAGR 37.4% · EBITDA 10.2%</div>
+        <div class="seg-desc">Fastest-growing segment. Margins best-in-class vs peers. US cable +46.7%. E-beam leadership unique in India. Order book ₹1,800 Cr. PAT contribution rising fast.</div>
+        <div style="margin-top:10px;"><span class="badge b-blue">Rising engine</span></div>
+      </div>
+      <div class="seg-card">
+        <div class="seg-icon">🛢</div>
+        <div class="seg-name">Speciality Oils</div>
+        <div class="seg-rev">₹5,373 Cr</div>
+        <div class="seg-cagr">5-yr CAGR 17.8% · EBITDA 7.0%</div>
+        <div class="seg-desc">#3 globally in transformer oils. High switching cost via OEM approvals. EBITDA/KL slightly pressured. Volume +9% YoY. Auto lube recovering. Cash cow, not growth engine.</div>
+        <div style="margin-top:10px;"><span class="badge b-amber">Steady · margin watch</span></div>
+      </div>
+    </div>
+    <div style="margin-top:12px;padding:10px 14px;background:var(--surface-2);border-radius:4px;font-size:12px;color:var(--ink-2);border:var(--rule);">
+      <strong style="color:var(--ink)">PAT contribution FY26:</strong> &nbsp; Conductor ₹512 Cr (52%) &nbsp;·&nbsp; Cable ₹342 Cr (35%) &nbsp;·&nbsp; Oil ₹137 Cr (14%) &nbsp;·&nbsp; Others (₹14 Cr) loss.
+      Cable's rising share of profit — from ~20% three years ago to 35% — is a structural quality improvement deserving a higher blended multiple.
+    </div>
+  </section>
+
+  <!-- Step 6: Red Flags & Positive Inflections -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Red Flags &amp; Positive Inflection Detection</h2>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="col-title">Red Flags Detected</div>
+        <div class="flag"><div class="flag-dot fd-amber"></div><div><strong>Receivables outpacing revenue</strong> (moderate) — DSO creep visible; oil export slowdown could worsen. Receivables quality data reassuring but trend needs monitoring FY27.</div></div>
+        <div class="flag"><div class="flag-dot fd-amber"></div><div><strong>FCF suppression</strong> (moderate) — ₹231 Cr FCF vs ₹977 Cr PAT. Capex cycle + WC absorption explains it; not alarming for a growth phase.</div></div>
+        <div class="flag"><div class="flag-dot fd-amber"></div><div><strong>Borrowings doubling</strong> (minor-moderate) — ₹841 Cr vs ₹470 Cr. D/E still 0.16×. CWIP explains the rise — watch FY27 conversion.</div></div>
+        <div class="flag"><div class="flag-dot fd-amber"></div><div><strong>ECB loan MTM</strong> (minor) — foreign-currency borrowing creates ongoing forex P&L volatility. Not structural, but adds earnings noise quarterly.</div></div>
+        <div class="flag"><div class="flag-dot fd-green"></div><div><strong>No auditor concerns, related party abuse, or promoter pledging.</strong> Promoter holds 57.77% clean. No pledging disclosed. First-ever exceptional item in FY26 history — transparent disclosure.</div></div>
+      </div>
+      <div>
+        <div class="col-title">Positive Inflection Signals</div>
+        <div class="insight positive"><strong>US market ramp is real and accelerating.</strong> Q4 FY26 cable US revenue +334% QoQ. Conductors US +155% QoQ. UL certifications in hand. Underpenetrated, high-margin market at early innings.</div>
+        <div class="insight positive"><strong>Cable margin structural at 10.2%.</strong> Premium product mix (E-beam, renewables, defence, EV) is the driver — not a one-time benefit. Peers operate at 7–8%. Moat is widening.</div>
+        <div class="insight positive"><strong>CWIP ₹539 Cr = visible capacity unlock.</strong> Revenue ramp from committed investment likely FY27–28.</div>
+        <div class="insight positive"><strong>Premium conductor mix 45.8%.</strong> TBCB projects gravitating to AL-59; HTLS pipeline growing; EBITDA/MT continues expanding.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 7: Industry & Competitive Positioning -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Industry &amp; Competitive Positioning</h2>
+    </div>
+    <div class="insight positive"><strong>Structural demand — not cyclical:</strong> Global T&D capex supercycle driven by decarbonisation, data-centre load, EV infrastructure, and grid modernisation. APAR sits at the nexus across all three segments. Reconductoring — a new TAM — expands addressable market without greenfield permitting.</div>
+    <div class="insight positive"><strong>China+1 beneficiary in conductors:</strong> USA, Europe, GCC utilities actively diversifying away from Chinese suppliers. APAR is pre-qualified with 140+ country presence. 272 reconductoring projects provides a defensible moat in turnkey execution.</div>
+    <div class="insight warning"><strong>Competitive risk in cables:</strong> Polycab, KEI, Havells, and international players all targeting renewables and US market. APAR's E-beam lead and UL certifications provide a 12–18 month runway advantage, but sustained premium pricing requires continuous product innovation.</div>
+    <div class="insight warning"><strong>Oil margin structural headwind:</strong> Base oil prices, crude volatility, and competition from Middle Eastern producers cap EBITDA/KL expansion. Oil segment is a cash cow, not a growth engine — appropriate capital allocation bias toward conductors and cables.</div>
+  </section>
+
+  <!-- Step 8: Capital Allocation -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">08</span>
+      <h2 class="section-title">Capital Allocation Quality</h2>
+    </div>
+    <table class="data-table">
+      <tr><td>Capex FY26</td><td><div class="val">₹737 Cr</div><div class="note">3.2% of revenue — disciplined. Up from ₹510 Cr prior year.</div></td></tr>
+      <tr><td>Cumulative cable capex FY19–26</td><td><div class="val">₹1,095 Cr</div><div class="note">Yielded ₹6,220 Cr revenue — ~6× asset turn</div></td></tr>
+      <tr><td>QIP proceeds (FY24)</td><td><div class="val">₹1,000 Cr</div><div class="note">Deployed into cable greenfield + WC; no dilution overhang remaining</div></td></tr>
+      <tr><td>Dividends paid FY26</td><td><div class="val">₹205 Cr</div><div class="note">~21% payout ratio — growth-reinvestment bias is appropriate</div></td></tr>
+      <tr><td>Net fixed asset turnover</td><td><div class="val">10.16×</div><div class="note">Declining from 13.67× peak — capex cycle explains normalisation</div></td></tr>
+      <tr><td>ROE FY26</td><td><div class="val">19.8%</div><div class="note">Slightly below prior peaks but sustainable at this growth rate</div></td></tr>
+    </table>
+    <div style="margin-top:10px;font-size:12px;color:var(--ink-3);">
+      Overall: <strong style="color:var(--ink)">Disciplined long-term allocator.</strong> No empire-building M&A. Organic, returns-focused expansion with clear sectoral tailwinds. No equity dilution risk on horizon.
+    </div>
+  </section>
+
+  <!-- Step 9: Valuation -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">09</span>
+      <h2 class="section-title">Valuation Comfort Analysis</h2>
+    </div>
+    <div class="insight positive"><strong>Earnings quality is genuinely high.</strong> PAT ≈ CFO. D/E 0.16×. Zero pledging. Premium product mix structurally expanding EBITDA/MT. No other-income dependency. No history of exceptional items prior to FY26.</div>
+    <div class="insight warning"><strong>Near-term FCF yield is thin.</strong> Investors are paying for the earnings power of FY28, not FY26. CWIP + WC absorption cycle will suppress FCF through FY27. Appropriate for the growth phase, but limits short-term support if sentiment turns.</div>
+    <div class="insight warning"><strong>EBITDA margin ceiling concern.</strong> At 9.0% for three consecutive years (FY24, FY25, FY26), margins are stable but not expanding. Commodity pass-through model limits upside leverage. Multiple re-rating requires volume + mix improvement, not margin surprise.</div>
+    <div style="margin-top:1rem;padding:12px 16px;background:var(--surface-2);border:var(--rule);border-radius:4px;font-size:12px;color:var(--ink-2);">
+      <strong style="color:var(--ink)">Valuation verdict: Reasonable to Fully Priced.</strong>
+      APAR deserves a premium to peers on account of #1 global conductor position, rising cable margins, pristine balance sheet, and US market optionality not yet priced in. Risk-reward is attractive for a 2–3 year horizon.
+    </div>
+  </section>
+
+  <!-- Step 10: Future Trajectory -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">10</span>
+      <h2 class="section-title">Future Trajectory FY27–FY29</h2>
+    </div>
+    <div class="scenario-grid">
+      <div class="scenario sc-bull">
+        <div class="sc-label">Bull Case</div>
+        <div class="sc-text">US cable/conductor market delivers ₹2,000+ Cr by FY28. EBITDA/MT reaches ₹50,000. CWIP converts to revenue; fixed-asset turns recover. Revenue ₹30,000 Cr by FY28. PAT ₹1,600+ Cr.</div>
+      </div>
+      <div class="scenario sc-base">
+        <div class="sc-label">Base Case</div>
+        <div class="sc-text">Revenue CAGR 18–20% over FY26–29. EBITDA margin holds 9–9.5%. US contribution grows to 8–10% of revenue. Cable margins hold 10%. PAT CAGR 20%+ to ₹1,400 Cr by FY28.</div>
+      </div>
+      <div class="scenario sc-bear">
+        <div class="sc-label">Bear Case</div>
+        <div class="sc-text">US tariff disruption hits export economics. Al/Cu price spike compresses margins. India T&D project delays. Chinese conductor price war. Oil margin structural deterioration.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Step 11: Final Verdict -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">11</span>
+      <h2 class="section-title">Final Investment Verdict</h2>
+    </div>
+    <div class="verdict">
+      <div class="verdict-heading">
+        <span class="verdict-pill" style="font-size:12px;margin-top:0;">▲ Accumulate</span>
+        <span style="font-size:13px;color:var(--ink-3);font-weight:400">12–24 month investment horizon</span>
+      </div>
+      <div class="verdict-body">
+        <p>APAR is the world's #1 aluminium conductor manufacturer, India's #1 cable exporter, and #3 globally in transformer oils. FY26 delivered ₹22,902 Cr revenue — an all-time high — with EBITDA flat at 9% for the third consecutive year. That margin flatness is structural stability in a commodity pass-through model, not operational stagnation. The US market ramp is real and early-stage. Cable margins at 10.2% are best-in-class. Balance sheet is near pristine at 0.16× D/E. Management has delivered on every major multi-year commitment.</p>
+        <p>Key risks to monitor: receivables growing faster than revenue, FCF suppression during capex cycle, oil margin ceiling, and US tariff uncertainty. None are structural blow-up risks at current leverage levels.</p>
+        <p><strong>What the market is likely underpricing:</strong> (1) The US cable and conductor market optionality — UL certifications in hand, Q4 FY26 ramp of 334% QoQ is the leading indicator; (2) CWIP ₹539 Cr will unlock capacity translating to revenue by FY27–28; (3) reconductoring as a new TAM with no serious Indian competitor; (4) cable PAT contribution at 35% vs ~20% three years ago — a structural mix shift deserving a higher blended multiple.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Monitoring Checklist -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-num">12</span>
+      <h2 class="section-title">Quarterly Monitoring Checklist</h2>
+    </div>
+    <div class="checklist">
+      <div class="check-item">US revenue (cables + conductors) — size and pace of ramp</div>
+      <div class="check-item">CWIP conversion to commissioned capacity</div>
+      <div class="check-item">Trade receivables DSO — watch for sustained >90 days</div>
+      <div class="check-item">Conductor EBITDA/MT — sustaining above ₹43,000?</div>
+      <div class="check-item">Cable EBITDA margin — holding 10%+?</div>
+      <div class="check-item">Oil EBITDA/KL — recovering toward ₹6,100+?</div>
+      <div class="check-item">Conductor order inflow — sustaining >₹10,000 Cr/yr?</div>
+      <div class="check-item">D/E ratio — should remain below 0.3× through capex cycle</div>
+    </div>
+  </section>
+
+  <hr class="divider">
+  <footer class="footer">
+    Analysis based on APAR Industries Q4 FY26 Corporate Presentation filed 28 May 2026 (SEC/2805/2026). &nbsp;·&nbsp; Not investment advice. &nbsp;·&nbsp; For institutional use only.
+  </footer>
+
+</div>
+</body>
+</html>
